@@ -1,0 +1,8 @@
+server:
+  host: localhost
+  port: 8888
+
+client:
+  name: false
+  host: localhost
+  port: 0

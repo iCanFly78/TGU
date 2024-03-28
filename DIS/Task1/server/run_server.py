@@ -1,12 +1,12 @@
 import socket
 import sys
-import logging
+# import logging
 from serverdatahandler import ServerDataHandler
 
-logging.basicConfig(filename='log.txt', filemode='w', level=logging.INFO,
-                    format="%(asctime)s(%(levelname)s): %(message)s")
+# logging.basicConfig(filename='log.txt', filemode='a', level=logging.INFO,
+#                     format="%(asctime)s(%(levelname)s): %(message)s")
 
-logging.info(f'Running server from {__name__}')
+# logging.info(f'Running server')
 
 if __name__ == "__main__":
     # Создаем объект серверного сокета.
