@@ -4,18 +4,25 @@ import time
 import json
 import threading
 from message import Message
-
+from clientconfig import BaseConfig
 # Глобальная переменная, отвечающая за остановку клиента.
 shutdown = False
 
 
-class ClientHandler:
+
+class ClientHandler(BaseConfig):
     """ Класс-Обработчик с бизнес-логикой клиента.
        Реализует методы получения и отображения сообщений
    """
 
-    def __init__(self, server_addr=('localhost', 8888),
-                 client_addr=('localhost', 0)):
+    def __init__(self):
+        super().__init__()
+        # Адрес сервера (ip, port) к которому происходит подключение:
+        if self.client['host'] == 'auto':
+            self.client['host'] = self.get_ip()
+        self.server_addr = self.get_conn('server') # Адрес сервера (ip, port) к которому происходит подключение:
+        self.client_addr = self.get_conn('client') # Адрес клиента (ip, port) к которому происходит подключение:
+        print(self.client_addr)
         global shutdown
         # Флаг сигнализирующий об успешном подключении
         join = False
@@ -24,12 +31,10 @@ class ClientHandler:
             try:
                 # Имя клиента в чате:
                 self.name = input("Name: ").strip()
-                # Адрес сервера (ip, port) к которому происходит подключение:
-                self.server_addr = server_addr
                 # Создание сокета:
                 self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 # Подключение сокета:
-                self.socket.connect(client_addr)
+                self.socket.connect(self.client_addr)
                 join = True
                 # Отправка сообщения о подключении:
                 connect_message = Message(

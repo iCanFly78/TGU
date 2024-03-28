@@ -3,8 +3,7 @@ from clienthandler import ClientHandler
 
 if __name__ == '__main__':
     # Создаем обработчик клиента
-    handler = ClientHandler(server_addr=('localhost', 8888),
-                            client_addr=('localhost', 0))
+    handler = ClientHandler()
     # В отдельном потоке вызываем обработку получения сообщений:
     recv_thread = threading.Thread(target=handler.receive)
     recv_thread.start()
